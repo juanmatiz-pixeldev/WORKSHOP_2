@@ -1,0 +1,8 @@
+# Dependencias del proyecto (se instalan sobre la imagen apache/airflow:3.1.8)
+# Se instalan con las constraints oficiales de Airflow para no romper el entorno.
+great_expectations==1.24.0
+pandas
+pyarrow
+psycopg2-binary
+sqlalchemy
+matplotlib

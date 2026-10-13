@@ -1,0 +1,126 @@
+# ============================================================================
+# Workshop-2 · Entorno reproducible
+#   airflow-db      : Postgres con los METADATOS de Airflow (no son datos del negocio)
+#   warehouse-db    : Postgres con DOS bases: grammy_source (fuente) y music_dw (DW)
+#   airflow-init    : migra la base de metadatos (corre una vez y termina)
+#   airflow-apiserver / scheduler / dag-processor : componentes de Airflow 3.1.8
+#   metabase        : (opcional, perfil "bi") herramienta de BI para el dashboard
+# Comandos: ver README.md  (docker compose up -d --build)
+# ============================================================================
+x-airflow-common: &airflow-common
+  build: .
+  image: workshop2-airflow:3.1.8
+  user: "${AIRFLOW_UID:-50000}:0"
+  environment: &airflow-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER}:${AIRFLOW_DB_PASSWORD}@airflow-db/${AIRFLOW_DB_NAME}
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+    AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_JWT_SECRET}
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+    # Solo desarrollo local: sin pantalla de login (SimpleAuthManager, todos admin)
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "true"
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    # Código del proyecto visible para los DAGs (import src.*)
+    PYTHONPATH: /opt/airflow
+    PROJECT_ROOT: /opt/airflow
+    WAREHOUSE_HOST: ${WAREHOUSE_HOST:-warehouse-db}
+    WAREHOUSE_PORT: "5432"
+    WAREHOUSE_USER: ${WAREHOUSE_USER}
+    WAREHOUSE_PASSWORD: ${WAREHOUSE_PASSWORD}
+    SOURCE_DB: ${SOURCE_DB:-grammy_source}
+    DW_DB: ${DW_DB:-music_dw}
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./src:/opt/airflow/src
+    - ./sql:/opt/airflow/sql
+    - ./scripts:/opt/airflow/scripts
+    - ./gx:/opt/airflow/gx
+    - ./data:/opt/airflow/data
+    - ./docs:/opt/airflow/docs
+    - airflow-logs:/opt/airflow/logs
+  depends_on:
+    airflow-db:
+      condition: service_healthy
+    warehouse-db:
+      condition: service_healthy
+
+services:
+  airflow-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${AIRFLOW_DB_USER}
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD}
+      POSTGRES_DB: ${AIRFLOW_DB_NAME}
+    volumes:
+      - airflow-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${AIRFLOW_DB_USER}"]
+      interval: 5s
+      retries: 10
+
+  warehouse-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${WAREHOUSE_USER}
+      POSTGRES_PASSWORD: ${WAREHOUSE_PASSWORD}
+    ports:
+      - "${WAREHOUSE_HOST_PORT:-5433}:5432"
+    volumes:
+      - warehouse-db-data:/var/lib/postgresql/data
+      - ./sql/init_databases.sql:/docker-entrypoint-initdb.d/01_init_databases.sql:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${WAREHOUSE_USER}"]
+      interval: 5s
+      retries: 10
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command: -c "airflow db migrate && echo 'Airflow DB lista'"
+    restart: "no"
+
+  airflow-apiserver:
+    <<: *airflow-common
+    command: api-server
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/version"]
+      interval: 15s
+      retries: 10
+      start_period: 40s
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-dag-processor:
+    <<: *airflow-common
+    command: dag-processor
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # BI opcional. Confirma con el docente que Metabase es una herramienta aprobada
+  # (el enunciado aprueba Power BI, Tableau, Looker Studio u otra aprobada).
+  metabase:
+    image: metabase/metabase:latest
+    profiles: ["bi"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      warehouse-db:
+        condition: service_healthy
+
+volumes:
+  airflow-db-data:
+  warehouse-db-data:
+  airflow-logs:

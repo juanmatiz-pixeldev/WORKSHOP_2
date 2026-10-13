@@ -1,0 +1,21 @@
+# Riesgos de calidad con evidencia de perfilado (§6.3 / §6.5)
+
+Generado desde `notebooks/data_profiling.ipynb` (`docs/evidence/profiling/risk_table.csv`). Reproduce con el notebook.
+
+| Dataset / Attribute | Profiling Evidence | Potential Quality Risk | Related Requirement | Rule ID(s) |
+|---|---|---|---|---|
+| Spotify / track_id, track_genre | 450 (0.39%) filas repiten el par (track_id, track_genre); 89,741 track_id distintos en 114,000 filas | Doble conteo en KPIs y violación del UNIQUE del hecho | AR-1, AR-2, AR-3 | DQ-S05, DQ-P03 |
+| Spotify / tempo, time_signature | tempo=0: 157; time_signature=0: 163 (valores centinela imposibles) | Promedios de tempo sesgados | AR-1 | DQ-S06, DQ-P06 |
+| Spotify / artists, track_name | 1 fila sin artists/track_name | Registro no integrable con Grammy | AR-1..3 | DQ-S07 |
+| Spotify / artists | 30,075 filas con varios artistas en un solo string | Cruce por artista fallido si se compara el string completo | AR-1..3 | DQ-P02 (primary_artist_norm) |
+| Spotify / popularity | rango [0, 100]; 16,020 filas con 0 | Medida principal; fuera de rango invalidaría promedios | AR-1, AR-3 | DQ-S03, DQ-P05 |
+| Spotify / (índice) Unnamed: 0 | Columna índice sin significado analítico | Contaminar el esquema del DW | — | DQ-P01 |
+| Grammy / artist | 1,840 (38.25%) nulos, concentrados en categorías cuyo crédito está en 'workers' | Cobertura limitada del vínculo con Spotify | AR-1..3 | DQ-G05, DQ-P09 |
+| Grammy / winner | winner=True en el 100% de las filas (1 valor distinto) | No se puede distinguir ganador de nominado: conclusión incorrecta si se asume lo contrario | AR-1 | DQ-G07 |
+| Grammy / nominee | 6 nulos | Sin vínculo por canción en esas filas | AR-1 | DQ-G04 |
+| Grammy / category | 638 categorías; 7 con variantes de mayúsculas | Dispersión de etiquetas si se agrupa por categoría | AR-3 | DQ-G03, DQ-G09 |
+| Grammy / year | rango 1958–2019 | Año imposible corrompe la década del primer Grammy | AR-3 | DQ-G02 |
+| Grammy / published_at, updated_at | solo 4 valores distintos (metadatos web) | Usarlos como fecha del premio daría un análisis temporal falso | AR-3 | (se descartan en transform) |
+| Cross-source / artist | coincidencia exacta 517 vs normalizada 551 de 1,658; 480 créditos compuestos | Falsos negativos (sin normalizar) y falsos positivos (solo título) | AR-1..3 | DQ-P07, DQ-P08, DQ-P09, DQ-P11 |
+
+Figuras: `docs/evidence/profiling/spotify_numeric_distributions.png`, `grammy_per_year.png`.

@@ -1,0 +1,159 @@
+{
+  "expectations": [
+    {
+      "id": "0a1e6d90-431a-42cf-b6cd-a308165d0e60",
+      "kwargs": {
+        "column_set": [
+          "year",
+          "title",
+          "published_at",
+          "updated_at",
+          "category",
+          "nominee",
+          "artist",
+          "workers",
+          "img",
+          "winner"
+        ],
+        "exact_match": false
+      },
+      "meta": {
+        "rule_id": "DQ-G01",
+        "severity": "Critical"
+      },
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_set"
+    },
+    {
+      "id": "dd08fd9f-08d6-4b16-a609-3f97511a868c",
+      "kwargs": {
+        "column": "year"
+      },
+      "meta": {
+        "rule_id": "DQ-G02",
+        "severity": "Critical"
+      },
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "614cf44d-a569-464c-b12e-5295c3cc1732",
+      "kwargs": {
+        "column": "year",
+        "max_value": 2030.0,
+        "min_value": 1958.0
+      },
+      "meta": {
+        "rule_id": "DQ-G02",
+        "severity": "Critical"
+      },
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "f423a798-8c2a-492d-866e-1ef899e4002f",
+      "kwargs": {
+        "column": "category"
+      },
+      "meta": {
+        "rule_id": "DQ-G03",
+        "severity": "Critical"
+      },
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "ec263bb4-d816-48df-ae35-c00a4b63bc7e",
+      "kwargs": {
+        "column": "nominee",
+        "mostly": 0.99
+      },
+      "meta": {
+        "rule_id": "DQ-G04",
+        "severity": "Warning"
+      },
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "c3552071-5e9a-4a73-94e9-86407e991641",
+      "kwargs": {
+        "column": "artist",
+        "mostly": 0.55
+      },
+      "meta": {
+        "rule_id": "DQ-G05",
+        "severity": "Warning"
+      },
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "a9d87f2b-17e6-4218-a667-c53a94897b7c",
+      "kwargs": {
+        "column_list": [
+          "year",
+          "category",
+          "nominee",
+          "artist"
+        ],
+        "mostly": 0.999
+      },
+      "meta": {
+        "rule_id": "DQ-G06",
+        "severity": "Warning"
+      },
+      "severity": "critical",
+      "type": "expect_compound_columns_to_be_unique"
+    },
+    {
+      "id": "b6cfbabb-b881-430b-9039-7efc7e7b0659",
+      "kwargs": {
+        "column": "winner",
+        "value_set": [
+          true,
+          false
+        ]
+      },
+      "meta": {
+        "rule_id": "DQ-G07",
+        "severity": "Warning"
+      },
+      "severity": "critical",
+      "type": "expect_column_distinct_values_to_contain_set"
+    },
+    {
+      "id": "e1ae26cc-afdc-47b9-b680-ae67e783e228",
+      "kwargs": {
+        "max_value": 20000,
+        "min_value": 1000
+      },
+      "meta": {
+        "rule_id": "DQ-G08",
+        "severity": "Critical"
+      },
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "f9497b5c-81b9-4c0a-b87b-dfb87d4e4e95",
+      "kwargs": {
+        "column": "category",
+        "max_value": 900,
+        "min_value": 400
+      },
+      "meta": {
+        "rule_id": "DQ-G09",
+        "severity": "Informational"
+      },
+      "severity": "critical",
+      "type": "expect_column_unique_value_count_to_be_between"
+    }
+  ],
+  "id": "c2bc4511-bd43-4dc9-9bf9-46ec865acf9d",
+  "meta": {
+    "great_expectations_version": "1.24.0"
+  },
+  "name": "grammys_raw_suite",
+  "notes": null
+}

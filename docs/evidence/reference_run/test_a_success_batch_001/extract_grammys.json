@@ -1,0 +1,26 @@
+{
+  "source": "postgresql",
+  "database": "grammy_source",
+  "server": "127.0.0.1/32",
+  "table": "public.grammy_awards",
+  "query": "SELECT source_row_id, year, title, published_at, updated_at, category, nominee, artist, workers, img, winner FROM public.grammy_awards ORDER BY source_row_id",
+  "path": "/tmp/ptest/data/staging/batch_001/grammys_raw.parquet",
+  "rows": 4810,
+  "columns": [
+    "source_row_id",
+    "year",
+    "title",
+    "published_at",
+    "updated_at",
+    "category",
+    "nominee",
+    "artist",
+    "workers",
+    "img",
+    "winner"
+  ],
+  "fault": "none",
+  "extracted_at": "2026-10-12T19:33:06.509616+00:00",
+  "batch_id": "batch_001",
+  "try_number": 2
+}

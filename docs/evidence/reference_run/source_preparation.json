@@ -1,0 +1,31 @@
+{
+  "loaded_at": "2026-10-12T19:27:01.012509+00:00",
+  "csv": "the_grammy_awards.csv",
+  "csv_sha256": "bae3d6613cb39adb597bb8864fb294144bd55cb452557536f324020266727d88",
+  "table": "grammy_source.public.grammy_awards",
+  "rows_csv": 4810,
+  "rows_table": 4810,
+  "rows_reconcile": true,
+  "null_artist": {
+    "csv": 1840,
+    "table": 1840
+  },
+  "null_nominee": {
+    "csv": 6,
+    "table": 6
+  },
+  "winner_true": {
+    "csv": 4810,
+    "table": 4810
+  },
+  "year_range": {
+    "csv": [
+      1958,
+      2019
+    ],
+    "table": [
+      1958,
+      2019
+    ]
+  }
+}

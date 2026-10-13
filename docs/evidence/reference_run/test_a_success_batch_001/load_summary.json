@@ -1,0 +1,19 @@
+{
+  "batch_id": "batch_001",
+  "loaded_at": "2026-10-12T19:33:26.983961+00:00",
+  "strategy": "atomic truncate-and-load (single transaction)",
+  "fact_rows_before_load": 113549,
+  "rows_loaded": {
+    "fact_track_listing": 113549,
+    "dim_track": 89740,
+    "dim_artist": 17627,
+    "dim_genre": 114,
+    "dim_recognition": 3
+  },
+  "measure_checks": {
+    "fact_rows": 113549,
+    "sum_popularity": 3783956.0,
+    "avg_popularity": 33.3244
+  },
+  "try_number": 1
+}

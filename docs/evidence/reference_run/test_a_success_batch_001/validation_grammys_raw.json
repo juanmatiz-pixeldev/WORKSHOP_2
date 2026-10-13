@@ -1,0 +1,193 @@
+{
+  "batch_id": "batch_001",
+  "layer": "grammys_raw",
+  "dataset": "Grammy PostgreSQL (raw)",
+  "rows_validated": 4810,
+  "validated_at": "2026-10-12T19:33:08.110106+00:00",
+  "gx": {
+    "suite": "grammys_raw_suite",
+    "validation_definition": "grammys_raw_validation",
+    "checkpoint": "grammys_raw_checkpoint",
+    "gx_overall_success": false
+  },
+  "policy_outcome": "PASS_WITH_WARNINGS",
+  "n_expectations": 10,
+  "failed_critical": [],
+  "failed_warning": [
+    "DQ-G07"
+  ],
+  "failed_informational": [],
+  "results": [
+    {
+      "rule_id": "DQ-G01",
+      "severity": "Critical",
+      "expectation": "expect_table_columns_to_match_set",
+      "kwargs": {
+        "column_set": [
+          "year",
+          "title",
+          "published_at",
+          "updated_at",
+          "category",
+          "nominee",
+          "artist",
+          "workers",
+          "img",
+          "winner"
+        ],
+        "exact_match": false
+      },
+      "success": true,
+      "observed_value": [
+        "artist",
+        "category",
+        "img",
+        "nominee",
+        "published_at",
+        "source_row_id",
+        "title",
+        "updated_at",
+        "winner",
+        "workers",
+        "year"
+      ],
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-G06",
+      "severity": "Warning",
+      "expectation": "expect_compound_columns_to_be_unique",
+      "kwargs": {
+        "column_list": [
+          "year",
+          "category",
+          "nominee",
+          "artist"
+        ],
+        "mostly": 0.999
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 4810,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-G08",
+      "severity": "Critical",
+      "expectation": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "min_value": 1000,
+        "max_value": 20000
+      },
+      "success": true,
+      "observed_value": 4810,
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-G02",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "year"
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 4810,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-G02",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "year",
+        "min_value": 1958.0,
+        "max_value": 2030.0
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 4810,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-G03",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "category"
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 4810,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-G09",
+      "severity": "Informational",
+      "expectation": "expect_column_unique_value_count_to_be_between",
+      "kwargs": {
+        "column": "category",
+        "min_value": 400,
+        "max_value": 900
+      },
+      "success": true,
+      "observed_value": 638,
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-G04",
+      "severity": "Warning",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "nominee",
+        "mostly": 0.99
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 4810,
+      "unexpected_count": 6,
+      "unexpected_percent": 0.12474012474012475
+    },
+    {
+      "rule_id": "DQ-G05",
+      "severity": "Warning",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "artist",
+        "mostly": 0.55
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 4810,
+      "unexpected_count": 1840,
+      "unexpected_percent": 38.25363825363826
+    },
+    {
+      "rule_id": "DQ-G07",
+      "severity": "Warning",
+      "expectation": "expect_column_distinct_values_to_contain_set",
+      "kwargs": {
+        "column": "winner",
+        "value_set": [
+          true,
+          false
+        ]
+      },
+      "success": false,
+      "observed_value": null,
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "actions": [],
+  "id": "1f9d5734-8a3b-4f6e-b6e5-1e94372eb517",
+  "name": "prepared_checkpoint",
+  "result_format": {
+    "result_format": "SUMMARY"
+  },
+  "validation_definitions": [
+    {
+      "id": "0f8b0136-441f-440a-ad4d-47e633334ccf",
+      "name": "prepared_validation"
+    }
+  ]
+}

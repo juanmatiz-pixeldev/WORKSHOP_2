@@ -1,0 +1,16 @@
+2026-10-12T19:32:28.929692Z INFO [batch=batch_001] extract_spotify: leyendo /tmp/ptest/data/raw/spotify_dataset.csv
+2026-10-12T19:32:29.473921Z INFO [batch=batch_001] extract_spotify OK: 114000 filas -> /tmp/ptest/data/staging/batch_001/spotify_raw.parquet
+2026-10-12T19:32:31.145075Z ERROR [batch=batch_001] extract_grammys: simulando interrupción transitoria de la BD
+2026-10-12T19:32:35.976721Z INFO [batch=batch_001] GX gate 'spotify_raw': 114000 filas, 15 expectations
+2026-10-12T19:32:36.901730Z INFO [batch=batch_001] gate 'spotify_raw' resultado=PASS | críticas=[] warnings=[] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_001/validation_spotify_raw.json
+2026-10-12T19:33:06.476950Z INFO [batch=batch_001] extract_grammys: conectado a PostgreSQL db=grammy_source host=127.0.0.1/32 user=etl_user
+2026-10-12T19:33:06.510521Z INFO [batch=batch_001] extract_grammys OK: 4810 filas desde grammy_source.public.grammy_awards -> /tmp/ptest/data/staging/batch_001/grammys_raw.parquet
+2026-10-12T19:33:08.001663Z INFO [batch=batch_001] GX gate 'grammys_raw': 4810 filas, 10 expectations
+2026-10-12T19:33:08.111069Z WARNING [batch=batch_001] grammys_raw WARNING DQ-G07: winner debería contener ambos valores (True y False) si distingue ganadores de nominados. | umbral: Valores distintos ⊇ {True, False} (observado: solo True)
+2026-10-12T19:33:08.111215Z INFO [batch=batch_001] gate 'grammys_raw' resultado=PASS_WITH_WARNINGS | críticas=[] warnings=['DQ-G07'] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_001/validation_grammys_raw.json
+2026-10-12T19:33:10.071077Z INFO [batch=batch_001] transform: spotify=114000 filas, grammy=4810 filas
+2026-10-12T19:33:13.699615Z INFO [batch=batch_001] transform OK: spotify 114000->113549 (dups=450, cuarentena=1) | grammy match artista=47.87% | listings vinculados artista=11080, canción=685 | reconciliación=/tmp/ptest/docs/evidence/runs/batch_001/reconciliation.json
+2026-10-12T19:33:16.041566Z INFO [batch=batch_001] GX gate 'prepared': 113549 filas, 16 expectations
+2026-10-12T19:33:17.411871Z INFO [batch=batch_001] gate 'prepared' resultado=PASS | críticas=[] warnings=[] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_001/validation_prepared.json
+2026-10-12T19:33:19.562068Z INFO [batch=batch_001] load_dw: 113549 filas preparadas -> music_dw
+2026-10-12T19:33:26.985851Z INFO [batch=batch_001] load_dw OK (COMMIT): {'fact_track_listing': 113549, 'dim_track': 89740, 'dim_artist': 17627, 'dim_genre': 114, 'dim_recognition': 3} | sum_popularity=3783956 avg=33.3244

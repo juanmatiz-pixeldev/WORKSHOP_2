@@ -1,0 +1,11 @@
+2026-10-12T19:28:08.544159Z INFO [batch=batch_fail_001] extract_grammys: conectado a PostgreSQL db=grammy_source host=127.0.0.1/32 user=etl_user
+2026-10-12T19:28:08.594169Z INFO [batch=batch_fail_001] extract_grammys OK: 4810 filas desde grammy_source.public.grammy_awards -> /tmp/ptest/data/staging/batch_fail_001/grammys_raw.parquet
+2026-10-12T19:28:10.648204Z INFO [batch=batch_fail_001] extract_spotify: leyendo /tmp/ptest/data/raw/spotify_dataset.csv
+2026-10-12T19:28:11.171116Z WARNING [batch=batch_fail_001] FAULT INJECTION activa: 5700 track_id anulados
+2026-10-12T19:28:11.341567Z INFO [batch=batch_fail_001] extract_spotify OK: 114000 filas -> /tmp/ptest/data/staging/batch_fail_001/spotify_raw.parquet
+2026-10-12T19:28:16.279055Z INFO [batch=batch_fail_001] GX gate 'spotify_raw': 114000 filas, 15 expectations
+2026-10-12T19:28:17.383559Z WARNING [batch=batch_fail_001] spotify_raw WARNING DQ-S05: El par (track_id, track_genre) debe ser único (es el grano de la fuente). | umbral: ≥ 98% de filas fuera de grupos duplicados (observado 99.22%)
+2026-10-12T19:28:17.383820Z INFO [batch=batch_fail_001] gate 'spotify_raw' resultado=FAIL | críticas=['DQ-S01'] warnings=['DQ-S05'] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_fail_001/validation_spotify_raw.json
+2026-10-12T19:28:19.671396Z INFO [batch=batch_fail_001] GX gate 'grammys_raw': 4810 filas, 10 expectations
+2026-10-12T19:28:19.833738Z WARNING [batch=batch_fail_001] grammys_raw WARNING DQ-G07: winner debería contener ambos valores (True y False) si distingue ganadores de nominados. | umbral: Valores distintos ⊇ {True, False} (observado: solo True)
+2026-10-12T19:28:19.833915Z INFO [batch=batch_fail_001] gate 'grammys_raw' resultado=PASS_WITH_WARNINGS | críticas=[] warnings=['DQ-G07'] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_fail_001/validation_grammys_raw.json

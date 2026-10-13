@@ -1,0 +1,32 @@
+{
+  "source": "csv_file",
+  "origin": "/tmp/ptest/data/raw/spotify_dataset.csv",
+  "path": "/tmp/ptest/data/staging/batch_fail_001/spotify_raw.parquet",
+  "rows": 114000,
+  "columns": [
+    "Unnamed: 0",
+    "track_id",
+    "artists",
+    "album_name",
+    "track_name",
+    "popularity",
+    "duration_ms",
+    "explicit",
+    "danceability",
+    "energy",
+    "key",
+    "loudness",
+    "mode",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "time_signature",
+    "track_genre"
+  ],
+  "fault": "spotify_null_track_id",
+  "extracted_at": "2026-10-12T19:28:11.341076+00:00",
+  "batch_id": "batch_fail_001"
+}

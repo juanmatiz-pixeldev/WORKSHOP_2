@@ -1,0 +1,25 @@
+{
+  "taken_at": "2026-10-12T19:30:12.934091+00:00",
+  "row_counts": {
+    "dim_recognition": 3,
+    "dim_genre": 114,
+    "dim_artist": 17627,
+    "dim_track": 89740,
+    "fact_track_listing": 113549
+  },
+  "measures": {
+    "sum_popularity": 3783956.0,
+    "avg_popularity": 33.3244,
+    "sum_duration_ms": 25898411578.0
+  },
+  "content_md5": "c2547305021af66dc98b675e4e3f987b",
+  "kpi1_avg_popularity": {
+    "No Grammy link": 33.51,
+    "Artist Grammy-linked": 30.94,
+    "Track Grammy-linked": 41.36
+  },
+  "etl_batch_log": {
+    "entries": 2,
+    "success": 2
+  }
+}

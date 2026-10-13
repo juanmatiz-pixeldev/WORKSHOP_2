@@ -1,0 +1,309 @@
+{
+  "batch_id": "batch_001",
+  "layer": "prepared",
+  "dataset": "Dataset preparado/integrado",
+  "rows_validated": 113549,
+  "validated_at": "2026-10-12T19:33:17.410518+00:00",
+  "gx": {
+    "suite": "prepared_suite",
+    "validation_definition": "prepared_validation",
+    "checkpoint": "prepared_checkpoint",
+    "gx_overall_success": true
+  },
+  "policy_outcome": "PASS",
+  "n_expectations": 16,
+  "failed_critical": [],
+  "failed_warning": [],
+  "failed_informational": [],
+  "results": [
+    {
+      "rule_id": "DQ-P01",
+      "severity": "Critical",
+      "expectation": "expect_table_columns_to_match_set",
+      "kwargs": {
+        "column_set": [
+          "track_id",
+          "track_genre",
+          "track_name",
+          "album_name",
+          "artists_raw",
+          "primary_artist",
+          "primary_artist_norm",
+          "n_artists",
+          "explicit",
+          "popularity",
+          "duration_ms",
+          "danceability",
+          "energy",
+          "valence",
+          "acousticness",
+          "instrumentalness",
+          "liveness",
+          "speechiness",
+          "loudness",
+          "tempo",
+          "time_signature",
+          "grammy_artist_linked",
+          "grammy_track_linked",
+          "recognition_level",
+          "artist_grammy_nominations",
+          "artist_grammy_wins",
+          "artist_first_grammy_year",
+          "artist_first_grammy_decade",
+          "track_grammy_nominations"
+        ]
+      },
+      "success": true,
+      "observed_value": [
+        "acousticness",
+        "album_name",
+        "artist_first_grammy_decade",
+        "artist_first_grammy_year",
+        "artist_grammy_nominations",
+        "artist_grammy_wins",
+        "artists_raw",
+        "danceability",
+        "duration_ms",
+        "energy",
+        "explicit",
+        "grammy_artist_linked",
+        "grammy_track_linked",
+        "instrumentalness",
+        "liveness",
+        "loudness",
+        "n_artists",
+        "popularity",
+        "primary_artist",
+        "primary_artist_norm",
+        "recognition_level",
+        "speechiness",
+        "tempo",
+        "time_signature",
+        "track_genre",
+        "track_grammy_nominations",
+        "track_id",
+        "track_name",
+        "valence"
+      ],
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-P03",
+      "severity": "Critical",
+      "expectation": "expect_compound_columns_to_be_unique",
+      "kwargs": {
+        "column_list": [
+          "track_id",
+          "track_genre"
+        ]
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P07",
+      "severity": "Critical",
+      "expectation": "expect_table_row_count_to_equal",
+      "kwargs": {
+        "value": 113549
+      },
+      "success": true,
+      "observed_value": 113549,
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-P08",
+      "severity": "Critical",
+      "expectation": "expect_column_pair_values_a_to_be_greater_than_b",
+      "kwargs": {
+        "column_A": "grammy_artist_linked",
+        "column_B": "grammy_track_linked",
+        "or_equal": true
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P02",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "track_id"
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P02",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "track_genre"
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P02",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "primary_artist_norm"
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P04",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "recognition_level",
+        "value_set": [
+          "No Grammy link",
+          "Artist Grammy-linked",
+          "Track Grammy-linked"
+        ]
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P05",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "popularity"
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P05",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "popularity",
+        "min_value": 0.0,
+        "max_value": 100.0
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P06",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "tempo",
+        "min_value": 30.0,
+        "max_value": 260.0
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P06",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "time_signature",
+        "min_value": 1.0,
+        "max_value": 7.0
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P06",
+      "severity": "Critical",
+      "expectation": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "duration_ms",
+        "min_value": 1.0
+      },
+      "success": true,
+      "observed_value": null,
+      "element_count": 113549,
+      "unexpected_count": 0,
+      "unexpected_percent": 0.0
+    },
+    {
+      "rule_id": "DQ-P09",
+      "severity": "Critical",
+      "expectation": "expect_column_sum_to_be_between",
+      "kwargs": {
+        "column": "grammy_artist_linked",
+        "min_value": 1000.0
+      },
+      "success": true,
+      "observed_value": "11080",
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-P11",
+      "severity": "Informational",
+      "expectation": "expect_column_mean_to_be_between",
+      "kwargs": {
+        "column": "grammy_artist_linked",
+        "min_value": 0.01,
+        "max_value": 0.6
+      },
+      "success": true,
+      "observed_value": 0.09757901874961471,
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    },
+    {
+      "rule_id": "DQ-P10",
+      "severity": "Warning",
+      "expectation": "expect_column_sum_to_be_between",
+      "kwargs": {
+        "column": "grammy_track_linked",
+        "min_value": 100.0
+      },
+      "success": true,
+      "observed_value": "685",
+      "element_count": null,
+      "unexpected_count": null,
+      "unexpected_percent": null
+    }
+  ]
+}

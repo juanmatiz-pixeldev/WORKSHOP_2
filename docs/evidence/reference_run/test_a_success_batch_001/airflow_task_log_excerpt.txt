@@ -1,0 +1,15 @@
+2026-10-12T19:27:24.383146Z INFO [batch=batch_001] extract_spotify: leyendo /tmp/ptest/data/raw/spotify_dataset.csv
+2026-10-12T19:27:25.091042Z INFO [batch=batch_001] extract_spotify OK: 114000 filas -> /tmp/ptest/data/staging/batch_001/spotify_raw.parquet
+2026-10-12T19:27:27.076353Z INFO [batch=batch_001] extract_grammys: conectado a PostgreSQL db=grammy_source host=127.0.0.1/32 user=etl_user
+2026-10-12T19:27:27.120230Z INFO [batch=batch_001] extract_grammys OK: 4810 filas desde grammy_source.public.grammy_awards -> /tmp/ptest/data/staging/batch_001/grammys_raw.parquet
+2026-10-12T19:27:32.486437Z INFO [batch=batch_001] GX gate 'spotify_raw': 114000 filas, 15 expectations
+2026-10-12T19:27:33.351706Z INFO [batch=batch_001] gate 'spotify_raw' resultado=PASS | críticas=[] warnings=[] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_001/validation_spotify_raw.json
+2026-10-12T19:27:36.041933Z INFO [batch=batch_001] GX gate 'grammys_raw': 4810 filas, 10 expectations
+2026-10-12T19:27:36.161244Z WARNING [batch=batch_001] grammys_raw WARNING DQ-G07: winner debería contener ambos valores (True y False) si distingue ganadores de nominados. | umbral: Valores distintos ⊇ {True, False} (observado: solo True)
+2026-10-12T19:27:36.161385Z INFO [batch=batch_001] gate 'grammys_raw' resultado=PASS_WITH_WARNINGS | críticas=[] warnings=['DQ-G07'] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_001/validation_grammys_raw.json
+2026-10-12T19:27:37.981323Z INFO [batch=batch_001] transform: spotify=114000 filas, grammy=4810 filas
+2026-10-12T19:27:41.824237Z INFO [batch=batch_001] transform OK: spotify 114000->113549 (dups=450, cuarentena=1) | grammy match artista=47.87% | listings vinculados artista=11080, canción=685 | reconciliación=/tmp/ptest/docs/evidence/runs/batch_001/reconciliation.json
+2026-10-12T19:27:44.182924Z INFO [batch=batch_001] GX gate 'prepared': 113549 filas, 16 expectations
+2026-10-12T19:27:45.444232Z INFO [batch=batch_001] gate 'prepared' resultado=PASS | críticas=[] warnings=[] info=[] | evidencia=/tmp/ptest/docs/evidence/runs/batch_001/validation_prepared.json
+2026-10-12T19:27:47.609101Z INFO [batch=batch_001] load_dw: 113549 filas preparadas -> music_dw
+2026-10-12T19:27:54.308842Z INFO [batch=batch_001] load_dw OK (COMMIT): {'fact_track_listing': 113549, 'dim_track': 89740, 'dim_artist': 17627, 'dim_genre': 114, 'dim_recognition': 3} | sum_popularity=3783956 avg=33.3244
